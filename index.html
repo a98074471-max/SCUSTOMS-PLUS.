@@ -1,0 +1,2298 @@
+
+<!doctype html>
+<html lang="fa" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>ماشین‌حساب گمرک</title>
+
+<link rel="stylesheet" href="style.css">
+<!-- <link rel="stylesheet" href="bootstrap.min.css"> -->
+
+</head>
+
+<body>
+
+<div id="customsIntro">
+    <canvas id="customsCanvas"></canvas>
+</div>
+
+<button id="themeBtn" class="themeBtn">🌙</button>
+
+<h1 class="logo2">CUSTOMS</h1>
+
+<div class="welcome">
+
+<h1>
+<span class="gy">hello</span>
+WELCOME TO CUSTOMS <span class="coler2">PLUS</span>
+</h1>
+
+<p>Let's get started !</p>
+
+</div>
+
+
+<header>
+
+<div class="m1">
+
+<img
+class="m"
+src="mn.jpg"
+alt="عکس من"
+width="200"
+height="150">
+
+</div>
+
+<h6>رویه ملوانی</h6>
+
+<div class="we">
+
+<div class="bob">
+🇺🇸 دلار (USD) 1,310,661
+</div>
+
+</div>
+
+<hr class="bn">
+
+</header>
+
+
+<input
+type="number"
+id="a"
+placeholder="ارزش کالا">
+
+<br><br>
+
+<input
+type="number"
+id="b"
+placeholder="حقوق ورودی">
+
+<br><br>
+
+
+<button
+class="to"
+id="calcButton"
+onclick="multiply()">
+
+<span>محاسبه</span>
+
+</button>
+
+
+<div class="df">
+
+<div class="x">
+<h1>:ارزش کالا</h1>
+<p id="h"></p>
+</div>
+
+<div class="x">
+<h2>:حقوق ورودی</h2>
+<p id="result"></p>
+</div>
+
+<div class="x">
+<h3>:ارزش افزوده</h3>
+<p id="f"></p>
+</div>
+
+<div class="x">
+<h4>:درصد هلال احمر</h4>
+<p id="s"></p>
+</div>
+
+<div class="x">
+<h5>:در هزار 12</h5>
+<p id="k" class="v"></p>
+</div>
+
+<div class="x">
+<h1>:پسماند</h1>
+<p id="o" class="v"></p>
+</div>
+
+<div class="x">
+<h5>:عواض فرهنگی</h5>
+<p id="m" class="v"></p>
+</div>
+
+<div class="x">
+<h5>:عوارض ملوانی</h5>
+<p id="y" class="v"></p>
+</div>
+
+</div>
+
+
+<div id="items"></div>
+
+
+<div class="df">
+
+<h1 class="nm">
+جمع کل اظهارنامه
+</h1>
+
+<div class="x">
+<h1>:ارزش کالا</h1>
+<p id="totalH"></p>
+</div>
+
+<div class="x">
+<h2>:حقوق ورودی</h2>
+<p id="totalResult"></p>
+</div>
+
+<div class="x">
+<h3>:ارزش افزوده</h3>
+<p id="totalF"></p>
+</div>
+
+<div class="x">
+<h4>:درصد هلال احمر</h4>
+<p id="totalS"></p>
+</div>
+
+<div class="x">
+<h5>: در هزار12</h5>
+<p id="totalK"></p>
+</div>
+
+<div class="x">
+<h1>:پسماند</h1>
+<p id="totalO"></p>
+</div>
+
+<div class="x">
+<h5>:عواض فرهنگی</h5>
+<p id="totalM"></p>
+</div>
+
+<div class="x">
+<h5>:عوارض ملوانی</h5>
+<p id="totalY"></p>
+</div>
+
+</div>
+
+
+<div class="vb">
+
+<h1 class="c">
+
+نرخ به ریال
+
+<br>
+
+:us دلار آمریکا (USD)
+
+1,310,661
+
+</h1>
+
+<br>
+
+<hr>
+
+<h1 class="c">
+🇪🇺 یورو (EUR) 1,551,964
+</h1>
+
+<br>
+
+<hr>
+
+<h1 class="c">
+:cn یوان چین (CNY) 188,931
+</h1>
+
+<br>
+
+<hr>
+
+<h1 class="c">
+🇦🇪 درهم امارات (AED) 356,885
+</h1>
+
+<br>
+
+<hr>
+
+<h1 class="c">
+نرخ ارز صادراتی دلار 1,476,255
+</h1>
+
+<br>
+
+<hr>
+
+<h1 class="c">
+🇹🇷 لیر ترکیه (TRY) 31,223
+</h1>
+
+<br>
+
+<hr>
+
+<h1 class="c">
+🇷🇺 روبل روسیه (RUB) 16,116
+</h1>
+
+<hr>
+
+<h1 class="c">
+
+نرخ تبدیل
+
+<br>
+
+یورو / دلار = 1.18
+
+<br>
+
+دلار / درهم = 3.19
+
+<br>
+
+دلار / یوان = 6.02
+
+<br>
+
+</h1>
+
+</div>
+
+
+<script>
+
+
+/* =========================================
+   INTRO
+========================================= */
+
+
+const cv =
+document.getElementById("customsCanvas");
+
+const ctx =
+cv.getContext("2d");
+
+const customsIntro =
+document.getElementById("customsIntro");
+
+
+const TM = {
+
+emblemIn:1.2,
+
+morphS:1.9,
+
+morphE:3.7,
+
+textS:3.5,
+
+glitchS:4.3,
+
+glitchE:5.0,
+
+welcomeS:6.0,
+
+welcomeGlitchS:6.0,
+
+welcomeGlitchE:6.8,
+
+plusS:6.0,
+
+plusE:6.8,
+
+end:10.5
+
+};
+
+
+const FONT =
+s =>
+`900 ${s}px "Arial Black",Impact,"Helvetica Neue",Arial,sans-serif`;
+
+
+const clamp =
+(x,a=0,b=1) =>
+Math.min(
+b,
+Math.max(a,x)
+);
+
+
+const ease =
+x =>
+x < .5
+?
+4*x*x*x
+:
+1-Math.pow(-2*x+2,3)/2;
+
+
+const easeOut =
+x =>
+1-Math.pow(1-x,3);
+
+
+let W,
+H,
+dpr,
+cx,
+cy,
+ES,
+fs,
+sp,
+total,
+widths,
+step,
+parts,
+imgs,
+t0,
+raf;
+
+
+const LETTERS =
+"CUSTOMS".split("");
+
+
+const WELCOME_LETTERS =
+"WELCOME TO CUSTOMS PLUS".split("");
+
+
+let welcomeFs;
+let welcomeSp;
+let welcomeWidths;
+let welcomeTotal;
+
+
+/* =========================================
+   EMBLEM
+========================================= */
+
+
+const EMB_W =
+"M280 160H530L462 228H283V401L208 476V228Z";
+
+
+const EMB_W2 =
+"M608 662H358L426 594H605V421L680 346V594Z";
+
+
+const EMB_G =
+"M568 160H668L208 620V520Z";
+
+
+const EMB_R =
+"M680 202V302L320 662H220Z";
+
+
+function drawEmblem(x,X,Y,sc){
+
+x.save();
+
+x.translate(X,Y);
+
+x.scale(sc,sc);
+
+x.translate(-444,-411);
+
+
+x.fillStyle="#ffffff";
+
+x.fill(
+new Path2D(EMB_W)
+);
+
+x.fill(
+new Path2D(EMB_W2)
+);
+
+
+x.fillStyle="#0a7a52";
+
+x.fill(
+new Path2D(EMB_G)
+);
+
+
+x.fillStyle="#ff3b14";
+
+x.fill(
+new Path2D(EMB_R)
+);
+
+x.restore();
+
+}
+
+
+/* =========================================
+   CUSTOMS
+========================================= */
+
+
+function drawText(x,color){
+
+x.font=FONT(fs);
+
+x.fillStyle=color;
+
+x.textBaseline="middle";
+
+x.textAlign="left";
+
+
+let px =
+cx-total/2;
+
+
+LETTERS.forEach(
+(l,i)=>{
+
+x.fillText(
+l,
+px,
+cy+fs*.03
+);
+
+px +=
+widths[i]+sp;
+
+}
+);
+
+}
+
+
+/* =========================================
+   WELCOME
+   فقط سفید
+========================================= */
+
+
+function drawWelcome(x,color){
+
+x.font=FONT(welcomeFs);
+
+x.fillStyle=color;
+
+x.textBaseline="middle";
+
+x.textAlign="left";
+
+
+let px =
+cx-welcomeTotal/2;
+
+
+WELCOME_LETTERS.forEach(
+(l,i)=>{
+
+x.fillText(
+l,
+px,
+cy+welcomeFs*.03
+);
+
+px +=
+welcomeWidths[i]+welcomeSp;
+
+}
+);
+
+}
+
+
+/* =========================================
+   فقط PLUS
+   فقط آبی
+========================================= */
+
+
+function drawPlus(x,color){
+
+x.font=FONT(welcomeFs);
+
+x.fillStyle=color;
+
+x.textBaseline="middle";
+
+x.textAlign="left";
+
+
+const before =
+"WELCOME TO CUSTOMS ".split("");
+
+
+let px =
+cx-welcomeTotal/2;
+
+
+before.forEach(
+(l,i)=>{
+
+px +=
+welcomeWidths[i]+welcomeSp;
+
+}
+);
+
+
+x.fillText(
+"PLUS",
+px,
+cy+welcomeFs*.03
+);
+
+}
+
+
+/* =========================================
+   PARTICLES
+========================================= */
+
+
+function sample(fn){
+
+const c =
+document.createElement("canvas");
+
+c.width=W;
+c.height=H;
+
+
+const x =
+c.getContext("2d");
+
+
+fn(x);
+
+
+const d =
+x.getImageData(
+0,
+0,
+W,
+H
+).data;
+
+
+const pts=[];
+
+
+for(
+let y=0;
+y<H;
+y+=step
+){
+
+for(
+let X=0;
+X<W;
+X+=step
+){
+
+if(
+d[(y*W+X)*4+3]>128
+){
+
+pts.push([
+
+X,
+y,
+
+d[(y*W+X)*4],
+
+d[(y*W+X)*4+1],
+
+d[(y*W+X)*4+2]
+
+]);
+
+}
+
+}
+
+}
+
+
+return pts;
+
+}
+
+
+/* =========================================
+   LAYER
+========================================= */
+
+
+function layer(fn){
+
+const c =
+document.createElement("canvas");
+
+c.width=W*dpr;
+c.height=H*dpr;
+
+
+const x =
+c.getContext("2d");
+
+x.scale(dpr,dpr);
+
+fn(x);
+
+return c;
+
+}
+
+
+/* =========================================
+   BUILD
+========================================= */
+
+
+function build(){
+
+dpr =
+Math.min(
+window.devicePixelRatio||1,
+2
+);
+
+
+W=innerWidth;
+H=innerHeight;
+
+
+cv.width=W*dpr;
+cv.height=H*dpr;
+
+
+cx=W/2;
+cy=H/2;
+
+
+ES =
+Math.min(
+H*.48,
+W*.52
+)/502;
+
+
+fs =
+Math.min(
+H*.2,
+W*.12
+);
+
+
+const measure=()=>{
+
+ctx.font=FONT(fs);
+
+sp=fs*.14;
+
+
+widths =
+LETTERS.map(
+l =>
+ctx.measureText(l).width
+);
+
+
+total =
+widths.reduce(
+(a,b)=>a+b,
+0
+)
++
+sp*(LETTERS.length-1);
+
+};
+
+
+measure();
+
+
+if(total>W*.84){
+
+fs *=
+W*.84/total;
+
+measure();
+
+}
+
+
+welcomeFs =
+Math.min(
+H*.12,
+W*.075
+);
+
+
+const measureWelcome=()=>{
+
+ctx.font=FONT(welcomeFs);
+
+
+/*
+   فاصله قبلی دست نخورده
+*/
+
+welcomeSp =
+welcomeFs*.10;
+
+
+welcomeWidths =
+WELCOME_LETTERS.map(
+l =>
+ctx.measureText(l).width
+);
+
+
+welcomeTotal =
+welcomeWidths.reduce(
+(a,b)=>a+b,
+0
+)
++
+welcomeSp*
+(WELCOME_LETTERS.length-1);
+
+};
+
+
+measureWelcome();
+
+
+if(
+welcomeTotal>W*.86
+){
+
+welcomeFs *=
+W*.86/welcomeTotal;
+
+measureWelcome();
+
+}
+
+
+step =
+Math.max(
+2,
+Math.round(
+Math.min(W,H)/200
+)
+);
+
+
+/* EMBLEM */
+
+const E =
+sample(
+x =>
+drawEmblem(
+x,
+cx,
+cy,
+ES
+)
+).sort(
+(a,b)=>
+Math.atan2(
+a[1]-cy,
+a[0]-cx
+)
+-
+Math.atan2(
+b[1]-cy,
+b[0]-cx
+)
+);
+
+
+/* CUSTOMS */
+
+const T =
+sample(
+x =>
+drawText(
+x,
+"#fff"
+)
+).sort(
+(a,b)=>
+a[0]-b[0]||
+a[1]-b[1]
+);
+
+
+const N =
+Math.min(
+9000,
+Math.max(
+E.length,
+T.length
+)
+);
+
+
+parts=[];
+
+
+for(
+let i=0;
+i<N;
+i++
+){
+
+const e =
+E[
+Math.floor(
+i/N*E.length
+)
+];
+
+
+const t =
+T[
+Math.floor(
+i/N*T.length
+)
+];
+
+
+parts.push({
+
+ex:e[0],
+ey:e[1],
+
+tx:t[0],
+ty:t[1],
+
+cr:e[2],
+cg:e[3],
+cb:e[4],
+
+mx:
+(e[0]+t[0])/2+
+(Math.random()-.5)*
+W*.35,
+
+my:
+(e[1]+t[1])/2+
+(Math.random()-.5)*
+H*.6,
+
+d:
+Math.random()*.4
+
+});
+
+}
+
+
+/* =========================================
+   IMAGE LAYERS
+========================================= */
+
+
+imgs={
+
+
+emblem:
+
+layer(x=>{
+
+x.shadowColor=
+"rgba(255,255,255,.35)";
+
+x.shadowBlur=16;
+
+drawEmblem(
+x,
+cx,
+cy,
+ES
+);
+
+}),
+
+
+text:
+
+layer(x=>{
+
+x.shadowColor=
+"rgba(255,255,255,.85)";
+
+x.shadowBlur=
+fs*.35;
+
+drawText(
+x,
+"#fff"
+);
+
+x.shadowBlur=
+fs*.12;
+
+drawText(
+x,
+"#fff"
+);
+
+x.shadowBlur=0;
+
+drawText(
+x,
+"#fff"
+);
+
+}),
+
+
+red:
+
+layer(
+x =>
+drawText(
+x,
+"#ff2a55"
+)
+),
+
+
+cyan:
+
+layer(
+x =>
+drawText(
+x,
+"#19e6ff"
+)
+),
+
+
+/*
+   WELCOME فقط سفید
+*/
+
+welcome:
+
+layer(x=>{
+
+x.shadowColor=
+"rgba(255,255,255,.85)";
+
+x.shadowBlur=
+welcomeFs*.30;
+
+drawWelcome(
+x,
+"#ffffff"
+);
+
+x.shadowBlur=0;
+
+drawWelcome(
+x,
+"#ffffff"
+);
+
+}),
+
+
+welcomeRed:
+
+layer(
+x =>
+drawWelcome(
+x,
+"#ff2a55"
+)
+),
+
+
+welcomeCyan:
+
+layer(
+x =>
+drawWelcome(
+x,
+"#19e6ff"
+)
+),
+
+
+/*
+   فقط PLUS آبی
+*/
+
+plus:
+
+layer(x=>{
+
+x.shadowColor=
+"rgba(0,140,255,.9)";
+
+x.shadowBlur=
+welcomeFs*.25;
+
+drawPlus(
+x,
+"#008cff"
+);
+
+})
+
+};
+
+}
+
+
+/* =========================================
+   RANDOM
+========================================= */
+
+
+const rnd =
+seed => {
+
+const s =
+Math.sin(
+seed*127.1+311.7
+)
+*
+43758.5453;
+
+return
+s-Math.floor(s);
+
+};
+
+
+/* =========================================
+   CUSTOMS GLITCH
+========================================= */
+
+
+function glitchFrame(t){
+
+const k =
+Math.floor(t*20);
+
+
+const env =
+Math.sin(
+clamp(
+(t-TM.glitchS)/
+(TM.glitchE-TM.glitchS)
+)
+*
+Math.PI
+);
+
+
+const I =
+clamp(env*1.4);
+
+
+if(
+rnd(k*3.1)
+<
+.12*I
+)
+return;
+
+
+const d =
+(rnd(k)*18+4)*
+I*
+(fs/120);
+
+
+ctx.save();
+
+ctx.globalAlpha=.9;
+
+ctx.globalCompositeOperation=
+"lighter";
+
+
+ctx.drawImage(
+imgs.red,
+-d,
+0,
+W,
+H
+);
+
+
+ctx.drawImage(
+imgs.cyan,
+d,
+0,
+W,
+H
+);
+
+
+ctx.restore();
+
+
+ctx.globalAlpha=
+.85+
+rnd(k+9)*.15;
+
+
+ctx.drawImage(
+imgs.text,
+0,
+0,
+W,
+H
+);
+
+
+ctx.globalAlpha=1;
+
+
+const bandsN =
+2+
+Math.floor(
+rnd(k+5)*4*I
+);
+
+
+for(
+let i=0;
+i<bandsN;
+i++
+){
+
+const h =
+fs*
+(
+.04+
+rnd(k+i*7)*.12
+);
+
+
+const y =
+cy-fs*.5+
+rnd(k+i*13)*fs;
+
+
+const dx =
+(rnd(k+i*17)-.5)*
+fs*.8*
+I;
+
+
+ctx.clearRect(
+0,
+y,
+W,
+h
+);
+
+
+ctx.drawImage(
+imgs.text,
+0,
+y*dpr,
+W*dpr,
+h*dpr,
+dx,
+y,
+W,
+h
+);
+
+}
+
+
+ctx.fillStyle=
+"rgba(255,255,255,.25)";
+
+
+for(
+let i=0;
+i<3*I;
+i++
+){
+
+ctx.fillRect(
+0,
+cy-fs*.6+
+rnd(k+i*3)*fs*1.2,
+W,
+1+
+rnd(k+i)*2
+);
+
+}
+
+}
+
+
+/* =========================================
+   WELCOME GLITCH
+========================================= */
+
+
+function welcomeGlitchFrame(t){
+
+const k =
+Math.floor(t*20);
+
+
+const env =
+Math.sin(
+clamp(
+(t-TM.welcomeGlitchS)/
+(TM.welcomeGlitchE-
+TM.welcomeGlitchS)
+)
+*
+Math.PI
+);
+
+
+const I =
+clamp(env*1.35);
+
+
+const d =
+(rnd(k)*16+3)*
+I*
+(welcomeFs/120);
+
+
+ctx.save();
+
+ctx.globalCompositeOperation=
+"lighter";
+
+ctx.globalAlpha=.85;
+
+
+ctx.drawImage(
+imgs.welcomeRed,
+-d,
+0,
+W,
+H
+);
+
+
+ctx.drawImage(
+imgs.welcomeCyan,
+d,
+0,
+W,
+H
+);
+
+
+ctx.restore();
+
+
+ctx.globalAlpha=.9;
+
+
+ctx.drawImage(
+imgs.welcome,
+0,
+0,
+W,
+H
+);
+
+
+ctx.globalAlpha=1;
+
+
+const bandsN =
+2+
+Math.floor(
+rnd(k+5)*4*I
+);
+
+
+for(
+let i=0;
+i<bandsN;
+i++
+){
+
+const h =
+welcomeFs*
+(
+.04+
+rnd(k+i*7)*.12
+);
+
+
+const y =
+cy-welcomeFs*.5+
+rnd(k+i*13)*welcomeFs;
+
+
+const dx =
+(rnd(k+i*17)-.5)*
+welcomeFs*.8*
+I;
+
+
+ctx.clearRect(
+0,
+y,
+W,
+h
+);
+
+
+ctx.drawImage(
+imgs.welcome,
+0,
+y*dpr,
+W*dpr,
+h*dpr,
+dx,
+y,
+W,
+h
+);
+
+}
+
+
+ctx.fillStyle=
+"rgba(255,255,255,.25)";
+
+
+for(
+let i=0;
+i<3*I;
+i++
+){
+
+ctx.fillRect(
+0,
+cy-welcomeFs*.6+
+rnd(k+i*3)*welcomeFs*1.2,
+W,
+1+
+rnd(k+i)*2
+);
+
+}
+
+
+/*
+   مهم:
+   بعد از افکت glitch سفید،
+   فقط PLUS را دوباره آبی می‌کنیم.
+   بنابراین PLUS هیچ‌وقت سفید نمی‌ماند.
+*/
+
+ctx.globalAlpha=1;
+
+ctx.drawImage(
+imgs.plus,
+0,
+0,
+W,
+H
+);
+
+}
+
+
+/* =========================================
+   MAIN FRAME
+========================================= */
+
+
+function frame(now){
+
+const t =
+(now-t0)/1000;
+
+
+ctx.setTransform(
+dpr,
+0,
+0,
+dpr,
+0,
+0
+);
+
+
+ctx.globalAlpha=1;
+
+ctx.fillStyle="#000";
+
+ctx.fillRect(
+0,
+0,
+W,
+H
+);
+
+
+ctx.setTransform(
+1,
+0,
+0,
+1,
+0,
+0
+);
+
+
+/* CUSTOMS */
+
+const textIn =
+clamp(
+(t-TM.textS)/.6
+);
+
+
+const textOut =
+1-
+clamp(
+(t-TM.glitchE)/.45
+);
+
+
+const textA =
+textIn*
+textOut;
+
+
+const inGlitch =
+t>=TM.glitchS &&
+t<TM.glitchE;
+
+
+/* EMBLEM */
+
+const eA =
+clamp(t/1.0)*
+(
+1-
+clamp(
+(t-1.6)/.4
+)
+);
+
+
+if(eA>0){
+
+const sc =
+.6+
+.4*
+easeOut(
+clamp(
+t/TM.emblemIn
+)
+);
+
+
+ctx.globalAlpha=eA;
+
+
+ctx.translate(
+cx*dpr,
+cy*dpr
+);
+
+
+ctx.scale(
+sc,
+sc
+);
+
+
+ctx.translate(
+-cx*dpr,
+-cy*dpr
+);
+
+
+ctx.drawImage(
+imgs.emblem,
+0,
+0
+);
+
+
+ctx.setTransform(
+1,
+0,
+0,
+1,
+0,
+0
+);
+
+
+ctx.globalAlpha=1;
+
+}
+
+
+/* PARTICLE MORPH */
+
+const pA =
+clamp(
+(t-1.5)/.4
+)*
+(
+1-textIn
+);
+
+
+if(pA>0){
+
+ctx.setTransform(
+dpr,
+0,
+0,
+dpr,
+0,
+0
+);
+
+
+const s =
+step*.95;
+
+
+const dur =
+TM.morphE-
+TM.morphS-
+.4;
+
+
+for(
+const p of parts
+){
+
+const u =
+ease(
+clamp(
+(t-TM.morphS-p.d)/
+dur
+)
+);
+
+
+const v=1-u;
+
+
+const x =
+v*v*p.ex+
+2*v*u*p.mx+
+u*u*p.tx;
+
+
+const y =
+v*v*p.ey+
+2*v*u*p.my+
+u*u*p.ty;
+
+
+const w =
+u*u;
+
+
+ctx.fillStyle=
+`rgba(
+${(p.cr+(255-p.cr)*w)|0},
+${(p.cg+(255-p.cg)*w)|0},
+${(p.cb+(255-p.cb)*w)|0},
+${pA}
+)`;
+
+
+ctx.fillRect(
+x,
+y,
+s,
+s
+);
+
+}
+
+
+ctx.setTransform(
+1,
+0,
+0,
+1,
+0,
+0
+);
+
+}
+
+
+/* CUSTOMS GLITCH */
+
+if(textA>0){
+
+ctx.setTransform(
+dpr,
+0,
+0,
+dpr,
+0,
+0
+);
+
+
+if(inGlitch){
+
+glitchFrame(t);
+
+}else{
+
+ctx.globalAlpha=textA;
+
+ctx.drawImage(
+imgs.text,
+0,
+0,
+W,
+H
+);
+
+ctx.globalAlpha=1;
+
+}
+
+
+ctx.setTransform(
+1,
+0,
+0,
+1,
+0,
+0
+);
+
+}
+
+
+/* =========================================
+   WELCOME TO CUSTOMS PLUS
+========================================= */
+
+
+const welcomeIn =
+clamp(
+(t-TM.welcomeS)/.55
+);
+
+
+const welcomeOut =
+1-
+clamp(
+(t-(TM.end-.5))/.5
+);
+
+
+const welcomeA =
+welcomeIn*
+welcomeOut;
+
+
+if(welcomeA>0){
+
+ctx.setTransform(
+dpr,
+0,
+0,
+dpr,
+0,
+0
+);
+
+
+ctx.globalAlpha=
+welcomeA;
+
+
+if(
+t>=TM.welcomeGlitchS &&
+t<TM.welcomeGlitchE
+){
+
+/*
+   افکت glitch روی WELCOME
+   و PLUS آبی
+*/
+
+welcomeGlitchFrame(t);
+
+}else{
+
+/*
+   WELCOME TO CUSTOMS سفید
+*/
+
+ctx.globalAlpha=
+welcomeA;
+
+ctx.drawImage(
+imgs.welcome,
+0,
+0,
+W,
+H
+);
+
+
+/*
+   فقط PLUS آبی
+*/
+
+ctx.globalAlpha=
+welcomeA;
+
+ctx.drawImage(
+imgs.plus,
+0,
+0,
+W,
+H
+);
+
+}
+
+
+ctx.globalAlpha=1;
+
+
+ctx.setTransform(
+1,
+0,
+0,
+1,
+0,
+0
+);
+
+}
+
+
+/* END */
+
+if(t<TM.end){
+
+raf =
+requestAnimationFrame(frame);
+
+}else{
+
+customsIntro.classList.add(
+"introFinished"
+);
+
+
+setTimeout(
+()=>{
+customsIntro.remove();
+},
+1000
+);
+
+}
+
+}
+
+
+/* =========================================
+   RUN
+========================================= */
+
+
+function run(){
+
+cancelAnimationFrame(raf);
+
+build();
+
+t0 =
+performance.now();
+
+raf =
+requestAnimationFrame(frame);
+
+}
+
+
+run();
+
+
+let rt;
+
+
+addEventListener(
+"resize",
+()=>{
+
+clearTimeout(rt);
+
+
+rt =
+setTimeout(
+()=>{
+
+if(
+customsIntro &&
+document.body.contains(customsIntro)
+){
+
+build();
+
+}
+
+},
+200
+);
+
+});
+
+
+/* =========================================
+   CALCULATOR
+========================================= */
+
+
+let items=[];
+
+
+function multiply(){
+
+let a =
+Number(
+document.getElementById("a").value
+);
+
+
+let b =
+Number(
+document.getElementById("b").value
+);
+
+
+if(
+a<=0 ||
+b<0
+){
+
+console.log(
+" محاسبه انجام نشد"
+);
+
+
+alert(
+"لطفاً اطلاعات قلم را وارد کنید"
+);
+
+
+return;
+
+}
+
+
+console.log(
+"یک محاسبه انجام شد"
+);
+
+
+let result =
+(a*1310661)*
+(b/100);
+
+
+let h =
+a*1310661;
+
+
+let f =
+(result+h)*
+(5/100);
+
+
+let s =
+result/100;
+
+
+let k =
+[(a*1310661)*12]/
+1000*
+0.20;
+
+
+let o =
+a*1310661*
+0.5/1000;
+
+
+let m =
+a*1310661*
+0.06*
+0.20;
+
+
+let y =
+result+
+f+
+k;
+
+
+let jp =
+(a*1310661)*
+0.02;
+
+
+document.getElementById("result")
+.innerHTML =
+result.toLocaleString("en-US");
+
+
+document.getElementById("h")
+.innerHTML =
+h.toLocaleString("en-US");
+
+
+document.getElementById("f")
+.innerHTML =
+f.toLocaleString("en-US");
+
+
+document.getElementById("s")
+.innerHTML =
+s.toLocaleString("en-US");
+
+
+document.getElementById("k")
+.innerHTML =
+k.toLocaleString("en-US");
+
+
+document.getElementById("o")
+.innerHTML =
+o.toLocaleString("en-US");
+
+
+document.getElementById("m")
+.innerHTML =
+m.toLocaleString("en-US");
+
+
+document.getElementById("y")
+.innerHTML =
+y.toLocaleString("en-US");
+
+
+items.push({
+
+h:h,
+result:result,
+f:f,
+s:s,
+k:k,
+o:o,
+m:m,
+y:y
+
+});
+
+
+let totalH=0,
+totalResult=0,
+totalF=0,
+totalS=0,
+totalK=0,
+totalO=0,
+totalM=0,
+totalY=0;
+
+
+for(
+let i=0;
+i<items.length;
+i++
+){
+
+totalH +=
+items[i].h;
+
+totalResult +=
+items[i].result;
+
+totalF +=
+items[i].f;
+
+totalS +=
+items[i].s;
+
+totalK +=
+items[i].k;
+
+totalO +=
+items[i].o;
+
+totalM +=
+items[i].m;
+
+totalY +=
+items[i].y;
+
+}
+
+
+document.getElementById("totalH")
+.innerHTML =
+totalH.toLocaleString("en-US");
+
+
+document.getElementById("totalResult")
+.innerHTML =
+totalResult.toLocaleString("en-US");
+
+
+document.getElementById("totalF")
+.innerHTML =
+totalF.toLocaleString("en-US");
+
+
+document.getElementById("totalS")
+.innerHTML =
+totalS.toLocaleString("en-US");
+
+
+document.getElementById("totalK")
+.innerHTML =
+totalK.toLocaleString("en-US");
+
+
+document.getElementById("totalO")
+.innerHTML =
+totalO.toLocaleString("en-US");
+
+
+document.getElementById("totalM")
+.innerHTML =
+totalM.toLocaleString("en-US");
+
+
+document.getElementById("totalY")
+.innerHTML =
+totalY.toLocaleString("en-US");
+
+
+let itemNumber =
+items.length;
+
+
+let itemBox =
+document.createElement("div");
+
+
+itemBox.className="df";
+
+
+itemBox.innerHTML=
+
+"<h1 class='nm'>قلم "+
+itemNumber+
+"</h1>"
+
++
+
+"<div class='x'><h1>:ارزش کالا</h1><p>"+
+h.toLocaleString("en-US")+
+"</p></div>"
+
++
+
+"<div class='x'><h2>:حقوق ورودی</h2><p>"+
+result.toLocaleString("en-US")+
+"</p></div>"
+
++
+
+"<div class='x'><h3>:ارزش افزوده</h3><p>"+
+f.toLocaleString("en-US")+
+"</p></div>"
+
++
+
+"<div class='x'><h4>:درصد هلال احمر</h4><p>"+
+s.toLocaleString("en-US")+
+"</p></div>"
+
++
+
+"<div class='x'><h5>: در هزار12</h5><p>"+
+k.toLocaleString("en-US")+
+"</p></div>"
+
++
+
+"<div class='x'><h1>:پسماند</h1><p>"+
+o.toLocaleString("en-US")+
+"</p></div>"
+
++
+
+"<div class='x'><h5>:عواض فرهنگی</h5><p>"+
+m.toLocaleString("en-US")+
+"</p></div>"
+
++
+
+"<div class='x'><h5>:عوارض ملوانی</h5><p>"+
+y.toLocaleString("en-US")+
+"</p></div>";
+
+
+document.getElementById(
+"items"
+)
+.appendChild(
+itemBox
+);
+
+
+const calcButton =
+document.getElementById(
+"calcButton"
+);
+
+
+const clickSound =
+new Audio("VB.wav");
+
+
+calcButton.addEventListener(
+"click",
+function(){
+
+clickSound.currentTime=0;
+
+clickSound
+.play()
+.catch(
+function(error){
+
+console.log(
+"Sound could not play:",
+error
+);
+
+}
+);
+
+}
+);
+
+}
+
+
+/* =========================================
+   DARK / LIGHT MODE
+========================================= */
+
+
+const themeBtn =
+document.getElementById(
+"themeBtn"
+);
+
+
+let savedTheme =
+localStorage.getItem(
+"theme"
+);
+
+
+if(
+savedTheme==="light"
+){
+
+document.body.classList.add(
+"light-mode"
+);
+
+themeBtn.innerHTML="☀️";
+
+}
+
+
+themeBtn.addEventListener(
+"click",
+function(){
+
+document.body.classList.toggle(
+"light-mode"
+);
+
+
+if(
+document.body.classList.contains(
+"light-mode"
+)
+){
+
+localStorage.setItem(
+"theme",
+"light"
+);
+
+themeBtn.innerHTML="☀️";
+
+}else{
+
+localStorage.setItem(
+"theme",
+"dark"
+);
+
+themeBtn.innerHTML="🌙";
+
+}
+
+}
+);
+
+</script>
+
+</body>
+
+</html>
